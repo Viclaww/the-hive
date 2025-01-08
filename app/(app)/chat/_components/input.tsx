@@ -26,7 +26,14 @@ import { usePrivy } from "@privy-io/react-auth";
 const ChatInput: React.FC = () => {
   const { user } = usePrivy();
 
-  const { input, setInput, onSubmit, isLoading, model, setModel } = useChat();
+  const {
+    input,
+    setInput,
+    onSubmit,
+    isLoading,
+    // model,
+    // setModel
+  } = useChat();
 
   const { onKeyDown } = useEnterSubmit({ onSubmit: onSubmit });
 
