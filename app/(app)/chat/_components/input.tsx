@@ -20,7 +20,7 @@ import { useChat } from "../_contexts/chat";
 
 import { cn } from "@/lib/utils";
 
-import ModelSelector from "./model-selector";
+// import ModelSelector from "./model-selector";
 import { usePrivy } from "@privy-io/react-auth";
 
 const ChatInput: React.FC = () => {
