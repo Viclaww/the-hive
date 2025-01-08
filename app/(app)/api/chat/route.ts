@@ -9,21 +9,20 @@ import { openai } from "@ai-sdk/openai";
 import { CdpAgentkit, cdpTools } from "@/ai";
 
 export const POST = async (req: NextRequest) => {
+  const { messages } = await req.json();
 
-    const { messages } = await req.json();
+  const agentkit = await CdpAgentkit.configureWithWallet({
+    networkId: Coinbase.networks.BaseSepolia,
+    cdpWalletData: process.env.WALLET_DETAILS,
+  });
 
-    const agentkit = await CdpAgentkit.configureWithWallet({
-        networkId: Coinbase.networks.BaseSepolia,
-        cdpWalletData: process.env.WALLET_DETAILS,
-    });
+  const result = streamText({
+    model: openai("gpt-4o-mini"),
+    tools: cdpTools(agentkit),
+    messages,
+  });
+  console.log(result);
+  result.toDataStream();
 
-    const result = streamText({
-        model: openai("gpt-4o-mini"),
-        tools: cdpTools(agentkit),
-        messages,
-    })
-
-    result.toDataStream()
-
-    return result.toDataStreamResponse();
-}
+  return result.toDataStreamResponse();
+};

@@ -83,6 +83,7 @@ export const POST = async (
 };
 
 const generateTagline = async (messages: Omit<Message, "id">[]) => {
+  // return "A chat about " + messages[0].content;
   const { text } = await generateText({
     model: openai("gpt-4o-mini"),
     messages: [
