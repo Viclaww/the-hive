@@ -17,8 +17,9 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Hive",
+  title: "TruthMatrix AI",
   description: "A modular network of interoperable DeFi agents",
+  icons: "/matrix.png",
 };
 
 export default function RootLayout({
@@ -28,12 +29,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body
-        className={`${dmSans.variable} ${dmMono.variable} antialiased bg-white dark:bg-neutral-900`}
-      >
-        <Providers>
-          {children}
-        </Providers>
+      <body className={`${dmSans.variable} ${dmMono.variable} antialiased  `}>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

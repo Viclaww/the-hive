@@ -2,19 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-dm-sans), sans-serif;
 }
 
-p, a, input, textarea, button, body {
+p,
+a,
+input,
+textarea,
+button,
+body {
   font-family: var(--font-dm-mono), monospace;
 }
 
 @layer base {
   :root {
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 96%;
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* --sidebar-background: 0 0% 96%;
+    --sidebar-foreground: 240 5.3% 26.1%; */
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 0, 0%, 90%;
@@ -24,8 +34,15 @@ p, a, input, textarea, button, body {
     --sidebar-active: 44, 100%, 41%;
   }
 
+  /* .matrixbg {
+    background-image: linear-gradient(to bottom, #00000080, #012d2d80),
+      url("/bg-image.png");
+  } */
   body {
-    @apply text-black dark:text-white bg-white dark:bg-neutral-900;
+    background-image: linear-gradient(to bottom, #00000080, #012d2d80),
+      url("/bg-image.png");
+    background-size: 100% 100%;
+    @apply text-black bg-cover bg-center dark:text-white bg-white dark:bg-neutral-900;
   }
   .dark {
     --sidebar-background: 0 0% 15%;
@@ -43,11 +60,11 @@ p, a, input, textarea, button, body {
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-   /* Hide scrollbar for IE, Edge and Firefox */
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
   .no-scrollbar {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }
