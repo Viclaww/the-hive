@@ -4,10 +4,12 @@ export const useStakeData = ({
     inputAmount, 
     slippageBps,
     userPublicKey,
+    contractAddress,
 }: { 
     inputAmount: number, 
     slippageBps: number,
     userPublicKey: string,
+    contractAddress: string,
 }) => {
 
     const { data, isLoading, error } = useSWR(`/api/build-transaction/stake`, (url: string) => fetch(url, {
@@ -16,6 +18,7 @@ export const useStakeData = ({
             inputAmount,
             slippageBps,
             userPublicKey,
+            contractAddress,
         }),
     }).then(res => res.json()));
 

@@ -10,3 +10,4 @@ export * from "./lend/types";
 export * from "./stake/types";
 export * from "./all-balances/types";
 export * from "./unstake/types";
+export * from "./liquid-staking-yields/types";

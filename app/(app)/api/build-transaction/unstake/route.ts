@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { JUP_API, getTokenDataByAddress } from "@/lib/solana";
 
 export const POST = async (req: NextRequest) => {
-    const { inputAmount, slippageBps, userPublicKey } = await req.json();
+    const { inputAmount, slippageBps, userPublicKey, contractAddress } = await req.json();
         
     const inputMintDecimals = await getTokenDataByAddress("jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v");
     if (!inputMintDecimals) throw new Error("Input mint not found");
@@ -11,7 +11,7 @@ export const POST = async (req: NextRequest) => {
     const quoteResponse = await (
         await fetch(
             `${JUP_API}/quote?` +
-            `inputMint=jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v` +
+            `inputMint=${contractAddress}` +
             `&outputMint=So11111111111111111111111111111111111111112` +
             `&amount=${inputAmount * (10 ** inputMintDecimals.decimals)}` +
             `&slippageBps=${slippageBps}` +
@@ -30,9 +30,7 @@ export const POST = async (req: NextRequest) => {
             body: JSON.stringify({
                 quoteResponse,
                 userPublicKey,
-                wrapAndUnwrapSol: true,
-                dynamicComputeUnitLimit: true,
-                prioritizationFeeLamports: 100000,
+                wrapAndUnwrapSol: true
             }),
         })
     ).json();

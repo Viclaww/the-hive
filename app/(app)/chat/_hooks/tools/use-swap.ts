@@ -31,6 +31,7 @@ export const useSwap = (toolCallId: string, args: SolanaTradeArgumentsType, user
       userPublicKey,
     });
 
+
     const { data: inputTokenData, isLoading: inputTokenDataLoading } = useTokenDataByAddress(args.inputMint ?? "So11111111111111111111111111111111111111112");
     const { data: outputTokenData, isLoading: outputTokenDataLoading } = useTokenDataByAddress(args.outputMint);
 
@@ -38,10 +39,11 @@ export const useSwap = (toolCallId: string, args: SolanaTradeArgumentsType, user
 
         if (!wallets.length) return;
 
+        if (!swapData) return;
+
         setIsSwapping(true);
 
         try {
-          
 
             // Deserialize the transaction
             const swapTransactionBuf = Buffer.from(swapData.swapTransaction, "base64");

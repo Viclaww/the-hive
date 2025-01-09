@@ -7,11 +7,11 @@ interface Props {
     amount: number;
 }
 
-const UnstakeResult: React.FC<Props> = ({ amount }) => {
+const UnstakeResult: React.FC<Props> = ({ amount, unstakeResult }) => {
 
     return (
         <p className="text-xs text-muted-foreground">
-            Unstaked {amount} JupSOL
+            Unstaked {amount} {unstakeResult.symbol}
         </p>
     );
 };

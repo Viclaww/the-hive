@@ -22,6 +22,7 @@ import {
 } from '@/components/ui';
 
 import { truncateAddress } from '@/lib/wallet';
+import Balances from './balances';
 
 const AuthButton: React.FC = () => {
 
@@ -65,7 +66,7 @@ const AuthButton: React.FC = () => {
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
-                        className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                        className="w-[--radix-dropdown-menu-trigger-width] min-w-80 rounded-lg"
                         side={isMobile ? "bottom" : "right"}
                         align="end"
                         sideOffset={4}
@@ -79,17 +80,13 @@ const AuthButton: React.FC = () => {
                             </div>
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
+                        <Balances address={user.wallet.address} />
+                        <DropdownMenuSeparator />
                         <DropdownMenuGroup>
                             <DropdownMenuItem onClick={() => fundWallet(user.wallet!.address, { amount: "0.01" })}>
                                 <Coins className="size-4" />
                                 Fund Wallet
                             </DropdownMenuItem>
-                            {/* <DropdownMenuItem asChild>
-                                <Link href="/account">
-                                    <User className="size-4" />
-                                    Account
-                                </Link>
-                            </DropdownMenuItem> */}
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={() => logout()}>

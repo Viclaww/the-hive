@@ -11,7 +11,8 @@ import {
     Stake,
     Unstake,
     AllBalances,
-    Lend
+    Lend,
+    LiquidStakingYields
 } from './solana'
 
 import { SearchRecentTweets } from './twitter'
@@ -29,7 +30,8 @@ import {
     SOLANA_UNSTAKE_NAME,
     SOLANA_ALL_BALANCES_NAME,
     TWITTER_SEARCH_RECENT_NAME,
-    SEARCH_KNOWLEDGE_NAME
+    SEARCH_KNOWLEDGE_NAME,
+    SOLANA_LIQUID_STAKING_YIELDS_NAME
 } from '@/ai/action-names'
 
 import type { ToolInvocation as ToolInvocationType } from 'ai'
@@ -51,6 +53,8 @@ const ToolInvocation: React.FC<Props> = ({ tool }) => {
             return <GetTokenData tool={tool} />
         case SOLANA_TRADE_NAME:
             return <Trade tool={tool} />
+        case SOLANA_LIQUID_STAKING_YIELDS_NAME:
+            return <LiquidStakingYields tool={tool} />
         case TWITTER_SEARCH_RECENT_NAME:
             return <SearchRecentTweets tool={tool} />
         case SOLANA_LEND_NAME:

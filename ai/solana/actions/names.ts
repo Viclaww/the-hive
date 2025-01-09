@@ -8,3 +8,4 @@ export * from "./lend/name";
 export * from "./stake/name";
 export * from "./unstake/name";
 export * from "./all-balances/name";
+export * from "./liquid-staking-yields/name";

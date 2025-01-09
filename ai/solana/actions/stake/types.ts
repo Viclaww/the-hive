@@ -8,6 +8,7 @@ export type StakeArgumentsType = z.infer<StakeSchemaType>;
 
 export type StakeResultBodyType = {
     tx: string;
+    symbol: string;
 } 
 
 export type StakeResultType = SolanaActionResult<StakeResultBodyType>;

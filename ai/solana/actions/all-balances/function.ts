@@ -2,7 +2,7 @@ import { LAMPORTS_PER_SOL, PublicKey, Connection } from "@solana/web3.js";
 
 import { getAccount } from "@solana/spl-token";
 
-import { getTokenDataByAddress } from "@/lib/solana";
+import { getBalances, getTokenDataByAddress } from "@/lib/solana";
 
 import type { SolanaActionResult } from "../solana-action";
 import type { AllBalancesArgumentsType, AllBalancesResultBodyType } from "./types";
@@ -29,28 +29,19 @@ export async function getAllBalances(
     });
 
     // Get all token accounts
-    const tokenAccounts = await connection.getTokenAccountsByOwner(
-      new PublicKey(args.walletAddress),
-      { programId: new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA") }
-    );
+    const tokenAccounts = await getBalances(args.walletAddress);
 
     // Get balance for each token account
-    for await (const account of tokenAccounts.value) {
-      const tokenAccount = await connection.getTokenAccountBalance(account.pubkey);
-      if (tokenAccount.value.uiAmount && tokenAccount.value.uiAmount > 0) {
-        // Get the token account info which includes the mint address
-        const accountInfo = await getAccount(connection, account.pubkey);
-        // Use the mint address instead of the token account address
-        const token = await getTokenDataByAddress(accountInfo.mint.toString());
+    for await (const account of tokenAccounts.token_accounts) {
+      const token = await getTokenDataByAddress(account.mint);
         if (token) {
           balances.push({
-            balance: tokenAccount.value.uiAmount,
+            balance: account.amount / 10 ** token.decimals,
             token: token.symbol,
             name: token.name,
             logoURI: token.logoURI
           });
         }
-      }
     }
 
     return {

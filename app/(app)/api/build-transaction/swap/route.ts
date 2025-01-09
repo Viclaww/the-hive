@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { PublicKey } from "@solana/web3.js";
-
-import { JUP_API, getTokenDataByAddress } from "@/lib/solana";
+import { getTokenDataByAddress, JUP_API } from "@/lib/solana";
+import { Connection, PublicKey, VersionedTransaction } from "@solana/web3.js";
 
 export const POST = async (req: NextRequest) => {
     const { outputMint, inputMint, inputAmount, slippageBps, userPublicKey } = await req.json();
@@ -27,7 +26,7 @@ export const POST = async (req: NextRequest) => {
     
     // Get serialized transaction
     const { swapTransaction } = await (
-        await fetch("https://quote-api.jup.ag/v6/swap", {
+        await fetch(`${JUP_API}/swap`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -41,6 +40,21 @@ export const POST = async (req: NextRequest) => {
             }),
         })
     ).json();
+
+    // Simulate transaction before returning
+    const swapTransactionBuf = Buffer.from(swapTransaction, "base64");
+    const transaction = VersionedTransaction.deserialize(swapTransactionBuf);
+
+    const connection = new Connection(process.env.NEXT_PUBLIC_SOLANA_RPC_URL!);
+    const simulation = await connection.simulateTransaction(transaction, {
+        replaceRecentBlockhash: true,
+        commitment: "processed",
+    });
+
+    if (simulation.value.err) {
+        console.log(simulation);
+        throw new Error(`Transaction simulation failed: ${simulation.value.err}`);
+    }
 
     return NextResponse.json({
         swapTransaction,

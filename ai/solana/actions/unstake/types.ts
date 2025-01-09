@@ -8,6 +8,8 @@ export type UnstakeArgumentsType = z.infer<UnstakeSchemaType>;
 
 export type UnstakeResultBodyType = {
     tx: string;
+    inputAmount: number;
+    symbol: string;
 } 
 
 export type UnstakeResultType = SolanaActionResult<UnstakeResultBodyType>;

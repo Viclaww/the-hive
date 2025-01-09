@@ -25,7 +25,10 @@ const AllBalances: React.FC<Props> = ({ tool }) => {
                         {result.body.balances.map((balance) => (
                             <div className="flex flex-row items-center gap-2" key={balance.token}>
                                 <img src={balance.logoURI} alt={balance.name} className="w-8 h-8 rounded-full" />
-                                <p>{balance.balance.toFixed(4)} {balance.name} ({balance.token})</p>
+                                <div className="flex flex-col">
+                                    <p className="text-sm font-medium">{balance.name} ({balance.token})</p>
+                                    <p>{balance.balance.toFixed(4)}</p>
+                                </div>
                             </div>
                         ))}
                     </div>

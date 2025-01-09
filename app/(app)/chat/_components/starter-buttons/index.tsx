@@ -11,9 +11,9 @@ const starterButtons = [
     }, 
     {
         title: "Stake",
-        description: "Stake Sol for JupSOL",
+        description: "Stake Sol",
         icon: "Coins" as const,
-        prompt: "Stake some of your SOL"
+        prompt: "Find me the best staking yields"
     },
     {
         title: "Trade",
@@ -22,10 +22,10 @@ const starterButtons = [
         prompt: "Let's trade some tokens"
     },
     {
-        title: "Search X",
-        description: "Query social media",
-        icon: "Search" as const,
-        prompt: "Let's search X"
+        title: "Knowledge",
+        description: "Get developer docs for protocols",
+        icon: "Brain" as const,
+        prompt: "Get me developer docs for Orca"
     }
 ] as const
 

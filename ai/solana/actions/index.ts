@@ -7,6 +7,7 @@ import { SolanaGetTokenDataAction } from "./get-token-data";
 import { SolanaStakeAction } from "./stake";
 import { SolanaUnstakeAction } from "./unstake";
 import { SolanaAllBalancesAction } from "./all-balances";
+import { SolanaLiquidStakingYieldsAction } from "./liquid-staking-yields";
 
 import type { SolanaAction, SolanaActionSchemaAny } from "./solana-action";
 
@@ -20,7 +21,8 @@ export function getAllSolanaActions(): SolanaAction<SolanaActionSchemaAny, any>[
     new SolanaGetTokenDataAction(),
     new SolanaStakeAction(),
     new SolanaUnstakeAction(),
-    new SolanaAllBalancesAction()
+    new SolanaAllBalancesAction(),
+    new SolanaLiquidStakingYieldsAction()
   ];
 }
 

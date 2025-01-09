@@ -8,7 +8,7 @@ import { useSolanaWallets } from "@privy-io/react-auth/solana";
 
 import { useChat } from "../../_contexts/chat";
 
-import { useStakeData, useTokenDataByAddress } from "@/hooks";
+import { useNativeBalance, useStakeData, useTokenAccounts, useTokenDataByAddress } from "@/hooks";
 
 import type { StakeArgumentsType } from "@/ai";
 import { useSendTransaction } from "@/hooks/privy";
@@ -25,12 +25,16 @@ export const useStake = (toolCallId: string, args: StakeArgumentsType, userPubli
 
     const { data: stakeData, isLoading: stakeDataLoading } = useStakeData({
       inputAmount: args.amount,
-      slippageBps: 500,
+      slippageBps: 300,
       userPublicKey,
+      contractAddress: args.contractAddress,
     });
 
     const { data: inputTokenData, isLoading: inputTokenDataLoading } = useTokenDataByAddress("So11111111111111111111111111111111111111112");
-    const { data: outputTokenData, isLoading: outputTokenDataLoading } = useTokenDataByAddress("jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v");
+    const { data: outputTokenData, isLoading: outputTokenDataLoading } = useTokenDataByAddress(args.contractAddress);
+
+    const { mutate: mutateNativeBalance } = useNativeBalance(userPublicKey);
+    const { mutate: mutateTokenAccounts } = useTokenAccounts(userPublicKey);
 
     const onStake = async () => {
 
@@ -46,16 +50,18 @@ export const useStake = (toolCallId: string, args: StakeArgumentsType, userPubli
             const tx = await sendTransaction(transaction);
         
             addToolResult(toolCallId, {
-                message: `Successfully staked ${args.amount} SOL for jupSOL.`,
+                message: `Successfully staked ${args.amount} SOL for ${outputTokenData!.symbol}.`,
                 body: {
                     transaction: tx,
                     inputAmount: args.amount,
-                    inputToken: inputTokenData!.symbol,
-                    outputToken: outputTokenData!.symbol
+                    symbol: outputTokenData!.symbol,
                 }
             });
+
+            mutateNativeBalance();
+            mutateTokenAccounts();
+
         } catch (error) {
-            console.error(error);
             addToolResult(toolCallId, {
                 message: `Error executing stake: ${error}`,
             });

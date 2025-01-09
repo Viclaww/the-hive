@@ -7,11 +7,11 @@ interface Props {
     amount: number;
 }
 
-const StakeResult: React.FC<Props> = ({ amount }) => {
+const StakeResult: React.FC<Props> = ({ stakeResult, amount }) => {
 
     return (
         <p className="text-xs text-muted-foreground">
-            Staked {amount} SOL for JupSOL
+            Staked {amount} SOL for {stakeResult.symbol}
         </p>
     );
 };

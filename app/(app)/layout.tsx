@@ -3,8 +3,9 @@ import React from 'react'
 import { SidebarProvider } from '@/components/ui';
 
 import Sidebar from './_components/sidebar';
-import { ChatProvider } from './chat/_contexts/chat';
 import ExperimentalAlertDialog from './_components/experimental-alert-dialog';
+
+import { ChatProvider } from './chat/_contexts/chat';
 
 interface Props {
     children: React.ReactNode;

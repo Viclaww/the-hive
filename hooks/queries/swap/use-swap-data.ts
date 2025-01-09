@@ -14,7 +14,7 @@ export const useSwapData = ({
     userPublicKey: string,
 }) => {
 
-    const { data, isLoading, error } = useSWR(`/api/build-transaction/swap`, (url: string) => fetch(url, {
+    const { data, isLoading, error } = useSWR(`/api/build-transaction/swap`, async (url: string) => fetch(url, {
         method: "POST",
         body: JSON.stringify({
             inputMint,

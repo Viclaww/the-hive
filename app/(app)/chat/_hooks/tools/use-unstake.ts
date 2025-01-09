@@ -27,10 +27,11 @@ export const useUnstake = (toolCallId: string, args: UnstakeArgumentsType, userP
       inputAmount: args.amount,
       slippageBps: 500,
       userPublicKey,
+      contractAddress: args.contractAddress,
     });
 
 
-    const { data: inputTokenData, isLoading: inputTokenDataLoading } = useTokenDataByAddress("jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v");
+    const { data: inputTokenData, isLoading: inputTokenDataLoading } = useTokenDataByAddress(args.contractAddress);
     const { data: outputTokenData, isLoading: outputTokenDataLoading } = useTokenDataByAddress("So11111111111111111111111111111111111111112");
 
     const onUnstake = async () => {
@@ -47,12 +48,11 @@ export const useUnstake = (toolCallId: string, args: UnstakeArgumentsType, userP
             const tx = await sendTransaction(transaction);
         
             addToolResult(toolCallId, {
-                message: `Successfully unstaked ${args.amount} jupSOL for SOL.`,
+                message: `Successfully unstaked ${args.amount} ${inputTokenData!.symbol} for SOL.`,
                 body: {
                     transaction: tx,
                     inputAmount: args.amount,
-                    inputToken: inputTokenData!.symbol,
-                    outputToken: outputTokenData!.symbol
+                    symbol: inputTokenData!.symbol,
                 }
             });
         } catch (error) {
