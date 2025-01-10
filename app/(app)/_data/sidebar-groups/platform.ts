@@ -9,22 +9,10 @@ export const platformGroup: SidebarGroup = {
             href: '/chat'
         },
         {
-            icon: 'Book',
-            label: 'Docs',
-            href: 'https://docs.askthehive.ai',
-            external: true
-        },
-        {
             icon: 'Twitter',
             label: 'Follow Us',
-            href: 'https://x.com/askthehive_ai',
+            href: 'https://x.com/@Truthmatrixai',
             external: true
         },
-        {
-            icon: 'Github',
-            label: 'Source Code',
-            href: 'https://github.com/jasonhedman/the-hive',
-            external: true
-        }
     ]
 }
