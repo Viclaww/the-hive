@@ -7,8 +7,10 @@ let database: Database;
 const DATABASE_ID = "The Hive Database";
 
 export const getDatabase = async () => {
-    if (!database) {
-        database = (await getCosmosClient().databases.createIfNotExists({ id: DATABASE_ID })).database;
-    }
-    return database;
+  if (!database) {
+    database = (
+      await getCosmosClient().databases.createIfNotExists({ id: DATABASE_ID })
+    ).database;
+  }
+  return database;
 };
