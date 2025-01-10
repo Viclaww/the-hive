@@ -7,7 +7,7 @@ import * as SheetPrimitive from "@radix-ui/react-dialog";
 
 import { VariantProps, cva } from "class-variance-authority";
 
-import { PanelLeft } from "lucide-react";
+import { Menu } from "lucide-react";
 
 import {
   Button,
@@ -288,7 +288,7 @@ const SidebarTrigger = React.forwardRef<
       }}
       {...props}
     >
-      <PanelLeft className="w-4 h-4 text-neutral-700 dark:text-neutral-300" />
+      <Menu className="w-4 h-4 text-neutral-700 dark:text-neutral-300" />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );

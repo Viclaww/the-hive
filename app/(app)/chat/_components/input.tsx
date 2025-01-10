@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 
-import { CornerDownRight } from "lucide-react";
+import { MessageCircle, Send } from "lucide-react";
 
 import Textarea from "react-textarea-autosize";
 
@@ -56,6 +56,10 @@ const ChatInput: React.FC = () => {
           isLoading && "opacity-50 cursor-not-allowed"
         )}
       >
+        <span className="my-1 mx-2 flex items-center gap-1">
+          <MessageCircle fill="white" className="w-5 h-5 " />
+          <h3>Chat</h3>
+        </span>
         <Textarea
           ref={inputRef}
           tabIndex={0}
@@ -89,7 +93,7 @@ const ChatInput: React.FC = () => {
                   variant="ghost"
                   className="h-8 w-8"
                 >
-                  <CornerDownRight className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
+                  <Send className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
                   <span className="sr-only">Send message</span>
                 </Button>
               </TooltipTrigger>
